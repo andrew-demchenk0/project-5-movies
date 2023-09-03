@@ -5,12 +5,14 @@ import './styles/styles.css';
 import { getPopularMovies, getTopRatedMovies, getUpcomingMovies, Movie } from './services/movieDBServices';
 import { MovieCard } from './modules/movieCard';
 import { initializeTabs } from './modules/tabs';
+import { showRandomMoviePreview } from './modules/randomMoviePreview';
 
 const filmContainer = document.getElementById('film-container');
 
 async function renderMovies(tab: string) {
     try {
         let movies: Movie[];
+
         switch (tab) {
             case 'popular':
                 movies = await getPopularMovies();
@@ -27,11 +29,14 @@ async function renderMovies(tab: string) {
 
         if (filmContainer) {
             filmContainer.innerHTML = '';
+
             movies.forEach((movie: Movie) => {
                 const movieCardHTML = MovieCard(movie);
                 filmContainer.insertAdjacentHTML('beforeend', movieCardHTML);
             });
         }
+
+        showRandomMoviePreview(movies);
     } catch (error) {
         console.error('Error getting movies:', error);
     }
@@ -42,4 +47,5 @@ function handleTabChange(selectedTab: string) {
 }
 
 initializeTabs(handleTabChange);
+
 renderMovies('popular');

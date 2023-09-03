@@ -4,6 +4,7 @@ interface Movie {
     releaseDate: string;
     posterImage: string;
     description: string;
+    backgroundImage: string;
 }
 
 interface MovieData {
@@ -12,6 +13,7 @@ interface MovieData {
     release_date: string;
     poster_path: string;
     overview: string;
+    backdrop_path: string;
 }
 
 const apiToken =
@@ -61,6 +63,7 @@ export function transformMovieData(movieData: MovieData): Movie {
         releaseDate: movieData.release_date,
         posterImage: `https://image.tmdb.org/t/p/original/${movieData.poster_path}`,
         description: movieData.overview,
+        backgroundImage: movieData.backdrop_path,
     };
 }
 

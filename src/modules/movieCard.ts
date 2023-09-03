@@ -8,7 +8,7 @@ export function MovieCard(movie: Movie) {
 				<svg 
 					xmlns="http://www.w3.org/2000/svg"
 					stroke="red"
-					fill="red"
+					fill="#ff000078"
 					width="50"
 					height="50"
 					class="bi bi-heart-fill position-absolute p-2"
