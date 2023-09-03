@@ -97,9 +97,12 @@ if (loadMoreButton) {
 
 function handleSearch(event: Event): void {
     event.preventDefault();
-    const searchQuery = searchInput.value;
-    currentPage = 1;
-    renderMovies('search', searchQuery);
+    const searchQuery = searchInput.value.trim();
+
+    if (searchQuery !== '') {
+        currentPage = 1;
+        renderMovies('search', searchQuery);
+    }
 }
 searchForm.addEventListener('submit', handleSearch);
 
