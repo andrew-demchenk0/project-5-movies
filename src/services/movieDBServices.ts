@@ -29,7 +29,6 @@ async function fetchData(url: string): Promise<MovieData[]> {
     };
 
     const response = await fetch(url, options);
-
     if (!response.ok) {
         throw new Error('Error fetching data');
     }
@@ -38,20 +37,27 @@ async function fetchData(url: string): Promise<MovieData[]> {
     return data.results as MovieData[];
 }
 
-async function getPopularMovies(): Promise<Movie[]> {
-    const url = 'https://api.themoviedb.org/3/movie/popular';
+async function getPopularMovies(pageNumber: number): Promise<Movie[]> {
+    const url = `https://api.themoviedb.org/3/movie/popular?page=${pageNumber}`;
     const moviesData = await fetchData(url);
     return moviesData.map(transformMovieData);
 }
 
-async function getUpcomingMovies(): Promise<Movie[]> {
-    const url = 'https://api.themoviedb.org/3/movie/upcoming';
+async function getUpcomingMovies(pageNumber: number): Promise<Movie[]> {
+    const url = `https://api.themoviedb.org/3/movie/upcoming?page=${pageNumber}`;
     const moviesData = await fetchData(url);
     return moviesData.map(transformMovieData);
 }
 
-async function getTopRatedMovies(): Promise<Movie[]> {
-    const url = 'https://api.themoviedb.org/3/movie/top_rated';
+async function getTopRatedMovies(pageNumber: number): Promise<Movie[]> {
+    const url = `https://api.themoviedb.org/3/movie/top_rated?page=${pageNumber}`;
+    const moviesData = await fetchData(url);
+    return moviesData.map(transformMovieData);
+}
+
+async function getSearchMovies(query: string, pageNumber: number): Promise<Movie[]> {
+    const encodedQuery = encodeURIComponent(query);
+    const url = `https://api.themoviedb.org/3/search/movie?query=${encodedQuery}&page=${pageNumber}`;
     const moviesData = await fetchData(url);
     return moviesData.map(transformMovieData);
 }
@@ -67,6 +73,5 @@ export function transformMovieData(movieData: MovieData): Movie {
     };
 }
 
-export { getPopularMovies, getUpcomingMovies, getTopRatedMovies };
-
+export { getPopularMovies, getUpcomingMovies, getTopRatedMovies, getSearchMovies };
 export type { Movie };

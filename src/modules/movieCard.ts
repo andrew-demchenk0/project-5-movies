@@ -11,7 +11,7 @@ export function MovieCard(movie: Movie) {
 					fill="#ff000078"
 					width="50"
 					height="50"
-					class="bi bi-heart-fill position-absolute p-2"
+					class="heart-icon position-absolute p-2"
 					viewBox="0 -2 18 22"
 				>
 					<path
