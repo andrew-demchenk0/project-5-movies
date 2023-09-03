@@ -20,8 +20,8 @@ export async function displayFavoriteMovies() {
 
     favoriteMoviesWithDetails.forEach((movie) => {
         if (movie) {
-            // eslint-disable-next-line no-param-reassign
-            movie.favorite = true;
+            const movieFavorite = movie;
+            movieFavorite.favorite = true;
             const movieCardHTML = MovieCard(movie);
             favoriteMoviesContainer.insertAdjacentHTML('beforeend', movieCardHTML);
         }
@@ -35,9 +35,9 @@ export async function displayFavoriteMovies() {
         const customInputs = Array.from(document.querySelectorAll('.favorite'));
 
         customInputs.forEach((item: any) => {
-            item.classList.add('active');
-            // eslint-disable-next-line no-param-reassign
-            item.style.fill = 'red';
+            const customInput = item;
+            customInput.classList.add('active');
+            customInput.style.fill = 'red';
         });
     }
 
@@ -57,11 +57,12 @@ export async function displayFavoriteMovies() {
                     }
                 }
                 document.querySelectorAll('.custom-input').forEach((e: any) => {
-                    const { movieId } = e.dataset;
+                    const customInput = e;
+                    const { movieId } = customInput.dataset;
 
                     if (favoriteId === movieId) {
-                        e.classList.remove('active');
-                        e.style.fill = '#ff000078';
+                        customInput.classList.remove('active');
+                        customInput.style.fill = '#ff000078';
                     }
                 });
             }
