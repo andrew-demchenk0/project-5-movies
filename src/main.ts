@@ -12,6 +12,8 @@ import {
 import { MovieCard } from './modules/movieCard';
 import { initializeTabs } from './modules/tabs';
 import { showRandomMoviePreview } from './modules/randomMoviePreview';
+import { handleAddToFavorite } from './modules/favoriteMovie';
+import { displayFavoriteMovies } from './modules/displayFavorites';
 
 const filmContainer = document.getElementById('film-container');
 const searchForm = document.getElementById('searchForm') as HTMLFormElement;
@@ -24,7 +26,6 @@ let currentSearchQuery = '';
 
 async function loadMoreMovies(): Promise<void> {
     currentPage += 1;
-    console.log('page', currentPage);
     try {
         await renderMovies(currentTab, currentSearchQuery, true, currentPage);
     } catch (error) {
@@ -58,15 +59,15 @@ async function renderMovies(tab: string, searchQuery = '', append = false, pageN
 
         if (filmContainer) {
             if (!append || pageNumber === 1) {
-                filmContainer.innerHTML = ''; // Очищаємо контейнер лише при першому завантаженні або якщо append === false
+                filmContainer.innerHTML = '';
             }
 
             movies.forEach((movie: Movie) => {
                 const movieCardHTML = MovieCard(movie);
                 filmContainer.insertAdjacentHTML('beforeend', movieCardHTML);
             });
+
             if (movies.length < 20) {
-                console.log('Empty movie list for page or < 20 items:', pageNumber);
                 if (loadMoreButton !== null) {
                     loadMoreButton.style.display = 'none';
                 }
@@ -80,6 +81,7 @@ async function renderMovies(tab: string, searchQuery = '', append = false, pageN
         }
 
         showRandomMoviePreview(movies);
+        handleAddToFavorite();
     } catch (error) {
         console.error('Error getting movies:', error);
     }
@@ -99,9 +101,9 @@ function handleSearch(event: Event): void {
     currentPage = 1;
     renderMovies('search', searchQuery);
 }
-
 searchForm.addEventListener('submit', handleSearch);
 
 initializeTabs(handleTabChange);
 
 renderMovies('popular');
+displayFavoriteMovies();
