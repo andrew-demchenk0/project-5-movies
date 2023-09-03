@@ -5,7 +5,7 @@ The application is written in typescript, using movie db. This is a site for fin
 
 
 ## 🛠 Skills
-Typescript, HTML
+Typescript, HTML, API
 
 ## 🔗 Links
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://andrew-demchenk0.github.io/)
